@@ -15,11 +15,18 @@ fn main() {
         if check_over_max(rest.parse().unwrap()){
             return;
         }
+
+        if rest.parse().unwrap() > 0xff{
+            if value_to_check > u8::MAX{
+            println!("The input is too big. Exiting.");
+            return;
+            }
         let hexconversion = u8::from_str_radix(rest, 16).unwrap();
         print_bin(hexconversion);
     } else {
         let decconversion = input.trim().parse().unwrap();
-        if check_over_max(decconversion){
+        if decconversion> 0xff {
+            println!("The input is too big. Exiting.");
             return;   
         }
         print_hex(decconversion);
@@ -36,10 +43,3 @@ fn print_hex(decinput: u8){
     println!("{} in hex is 0x{:x}", decinput, decinput);
 }
 
-fn check_over_max(value_to_check:u8)->bool{
-    if value_to_check > u8::MAX{
-        println!("The input is too big. Exiting.");
-        return true;
-    }
-    return false;
-}
